@@ -1,2 +1,2 @@
 # Image-Screen-Reader
-A screen reader with image processing capabilities
+A screen reader with image processing capabilities.
