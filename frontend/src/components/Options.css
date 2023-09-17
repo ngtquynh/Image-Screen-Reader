@@ -1,0 +1,58 @@
+/* Options.css */
+.options-container {
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px; /* Adjust the maximum width as needed */
+  margin: 0 auto; /* Center the container horizontally */
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Style the dropdowns (select elements) */
+select.form-control {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="none" height="1em" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 9l-6 6-6-6 1.41-1.41z" fill="#333"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+  cursor: pointer;
+}
+
+/* Style the selected option in the dropdown */
+select.form-control option:checked {
+  font-weight: bold;
+}
+
+/* Customize the appearance when hovering over dropdowns */
+select.form-control:hover {
+  border-color: #aaa;
+}
+
+/* Style the form when a dropdown has a value selected */
+select.form-control:valid {
+  border-color: #4CAF50; /* Green border color for valid selection */
+}
+
+/* Add more specific styling if needed */
