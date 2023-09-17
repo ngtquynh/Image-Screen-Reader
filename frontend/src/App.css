@@ -1,17 +1,20 @@
 /* App.css */
 .app-container {
   display: flex;
+  font-size: 16px;
   flex-direction: column;
   align-items: center;
   text-align: center;
   padding: 20px;
+  font-family: 'Dosis', sans-serif;
   background-color: #8198d1; /* Dark background color */
   color: #fff; /* Light text color */
 }
 
 h1 {
-  font-size: 36px;
+  
   margin-bottom: 20px;
+  font-family: 'Dosis', sans-serif;
 }
 
 .options-section {
@@ -19,6 +22,7 @@ h1 {
   max-width: 600px; /* Adjust the maximum width as needed */
   margin-bottom: 20px;
   border-radius: 10px;
+  font-size: 16px;
   padding: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
@@ -41,19 +45,28 @@ h1 {
   background-color: #444; /* Darker background color */
   border: 1px solid #555; /* Darker border color */
   color: #fff; /* Light text color */
+  font-family: 'Dosis', sans-serif;
+  font-size: 16px;
 }
 
 /* Specific styling for dark mode buttons */
 .input-section button {
   background-color: #007bff; /* Primary color for buttons */
-  color: #fff; /* Light text color */
+  color: #050505; /* Light text color */
   border: none;
   padding: 10px 20px;
+  font-family: 'Dosis', sans-serif;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border-radius: 20px;
+  background-color: white;
+  font-size: 16px;
 }
 
 .input-section button:hover {
   background-color: #0056b3; /* Darker shade on hover */
+  font-family: 'Dosis', sans-serif;
+  font-size: 16px;
 }
 
