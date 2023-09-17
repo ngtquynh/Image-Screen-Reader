@@ -55,10 +55,6 @@ function App() {
             selectedOptions={selectedOptions}
           />
         </div>
-        <div className="output-section">
-          <h2>Generated Test Cases</h2>
-          <Output output={output} /> {/* Pass the output data as a prop */}
-        </div>
       </div>
     </div>
   );

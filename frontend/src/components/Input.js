@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./Input.css";
+import { CodeBlock, dracula } from "react-code-blocks";
 
-const Input = ({ selectedOptions, onGenerateOutput }) => {
-  // Pass onGenerateOutput as a prop
+const Input = ({ selectedOptions }) => {
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [output, setOutput] = useState(""); // State to store the generated output
 
   const handleChange = (e) => {
     setCode(e.target.value);
@@ -41,15 +42,14 @@ const Input = ({ selectedOptions, onGenerateOutput }) => {
     })
       .then((response) => {
         if (response.ok) {
-          
           return response.json();
         } else {
           throw new Error("Error sending input data to the server");
         }
       })
       .then((data) => {
-        // Call the callback function to pass the output data
-        onGenerateOutput(data.output);
+        // Set the output state with the generated output
+        setOutput(data.unitTests);
       })
       .catch((error) => {
         setError(
@@ -86,8 +86,23 @@ const Input = ({ selectedOptions, onGenerateOutput }) => {
             {loading ? "Generating..." : "Generate Output"}
           </button>
         </div>
-        {error && <div className="error-message">{error}</div>}
+        
       </form>
+      {error && <div className="error-message">{error}</div>}
+
+        {/* Display the output here */}
+        {output && (
+          <div className="output">
+            <h2>Generated Test Cases</h2>
+            <CodeBlock
+              text={output}
+              language={selectedOptions.language} // Specify the language as needed
+              showLineNumbers={true} // Specify whether to show line numbers
+              theme={dracula}
+              wrapLines={true}
+            />
+          </div>
+        )}
     </div>
   );
 };
