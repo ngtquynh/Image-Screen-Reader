@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@capacitor/screen-reader": "^5.0.6",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.3.1"
+  }
+}

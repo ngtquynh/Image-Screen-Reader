@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import './Input.css';
+import React, { useState } from "react";
+import "./Input.css";
 
 const Input = ({ onGenerateOutput, selectedOptions }) => {
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState("");
 
   const handleChange = (e) => {
     setCode(e.target.value);
@@ -12,20 +12,23 @@ const Input = ({ onGenerateOutput, selectedOptions }) => {
     e.preventDefault();
     if (selectedOptions.language && selectedOptions.framework) {
       // Send input data to the backend
-      // You can use fetch or any other method to send a POST request to your backend
-      // Example:
-      fetch('/api/input', {
-        method: 'POST',
+      // Use the `code` state to send the user-entered code
+      fetch("http://localhost:8000/generate-tests", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ input: code }),
+        body: JSON.stringify({
+          functionCode: code, // Use the `code` state here
+          language: selectedOptions.language,
+          framework: selectedOptions.framework,
+        }),
       })
         .then((response) => {
           if (response.ok) {
             return response.json();
           } else {
-            throw new Error('Error sending input data to the server');
+            throw new Error("Error sending input data to the server");
           }
         })
         .then((data) => {

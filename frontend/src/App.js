@@ -1,4 +1,3 @@
-// App.js
 import React, { useState } from "react";
 import Options from "./components/Options";
 import Input from "./components/Input";
@@ -6,7 +5,7 @@ import Output from "./components/Output";
 import "./App.css";
 
 function App() {
-  const [code, setCode] = useState("");
+  const [code, setCode] = useState(["", "", ""]); // Initialize code as an array
   const [selectedOptions, setSelectedOptions] = useState({
     language: "",
     framework: "",
@@ -16,32 +15,73 @@ function App() {
     setSelectedOptions(updatedOptions);
   };
 
-  const handleGenerateOutput = (inputText) => {
+  const handleGenerateOutput = (functionCode) => {
     // Check if both options are selected
     if (selectedOptions.language && selectedOptions.framework) {
-      // Combine the input text with selected options
-      const outputText = inputText + " " + selectedOptions.language + " " + selectedOptions.framework;
-      setCode(outputText);
+      // Update the code array with functionCode, language, and framework
+      setCode([
+        functionCode,
+        selectedOptions.language,
+        selectedOptions.framework,
+      ]);
+
+      // Send the code array to the backend
+      sendCodeToBackend({
+        functionCode: functionCode,
+        language: selectedOptions.language,
+        framework: selectedOptions.framework,
+      });
     } else {
       // Display an error message if options are not selected
-      setCode("Please select both language and testing framework before generating output.");
+      setCode([
+        "Please select both language and testing framework before generating output.",
+        "",
+        "",
+      ]);
     }
+  };
+
+  const sendCodeToBackend = (codeArray) => {
+    // Send the code array to the Express backend
+    fetch("http://localhost:8000/generate-tests", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ code: codeArray }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the response from the backend if needed
+        console.log("Backend response:", data);
+      })
+      .catch((error) => {
+        // Handle errors
+        console.error("Error sending data to backend:", error);
+      });
   };
 
   return (
     <div className="app-container">
       <h1>Test Cases Generator</h1>
       <div className="options-section">
-        <Options onChange={handleOptionsChange} selectedOptions={selectedOptions} />
+        <Options
+          onChange={handleOptionsChange}
+          selectedOptions={selectedOptions}
+        />
       </div>
       <div className="input-output-row">
         <div className="input-section dark-mode">
           <h2>Input</h2>
-          <Input onGenerateOutput={handleGenerateOutput} selectedOptions={selectedOptions} />
+          <Input
+            onGenerateOutput={handleGenerateOutput}
+            selectedOptions={selectedOptions}
+          />
         </div>
         <div className="output-section">
           <h2>Generated Test Cases</h2>
-          <Output output={code} />
+          <Output output={code[0]} />{" "}
+          {/* Display the outputText from the code array */}
         </div>
       </div>
     </div>
