@@ -37,4 +37,10 @@ function isValidCode(code) {
   return code.includes("function");
 }
 
-console.log(await generateUnitTests("function add(a,b) return a + b", "JavaScript", "Jest"));
+// console.log(
+//   await generateUnitTests(
+//     "function add(a,b) return a + b",
+//     "JavaScript",
+//     "Jest"
+//   )
+// );

@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import Options from "./components/Options";
 import Input from "./components/Input";
-import Output from "./components/Output";
+import Output from "./components/Output"; // Import the Output component
 import "./App.css";
 
 function App() {
-  const [code, setCode] = useState(["", "", ""]); // Initialize code as an array
+  const [code, setCode] = useState("");
   const [selectedOptions, setSelectedOptions] = useState({
     language: "",
     framework: "",
   });
+  const [output, setOutput] = useState(""); // Add state for output
 
   const handleOptionsChange = (updatedOptions) => {
     setSelectedOptions(updatedOptions);
@@ -18,47 +19,23 @@ function App() {
   const handleGenerateOutput = (functionCode) => {
     // Check if both options are selected
     if (selectedOptions.language && selectedOptions.framework) {
-      // Update the code array with functionCode, language, and framework
-      setCode([
-        functionCode,
-        selectedOptions.language,
-        selectedOptions.framework,
-      ]);
+      // Combine the input text with selected options
+      const outputText =
+        functionCode +
+        " " +
+        selectedOptions.language +
+        " " +
+        selectedOptions.framework;
+      // setCode(outputText);
 
-      // Send the code array to the backend
-      sendCodeToBackend({
-        functionCode: functionCode,
-        language: selectedOptions.language,
-        framework: selectedOptions.framework,
-      });
+      // Set the output state with the generated output
+      setOutput(outputText);
     } else {
       // Display an error message if options are not selected
-      setCode([
-        "Please select both language and testing framework before generating output.",
-        "",
-        "",
-      ]);
+      setCode(
+        "Please select both language and testing framework before generating output."
+      );
     }
-  };
-
-  const sendCodeToBackend = (codeArray) => {
-    // Send the code array to the Express backend
-    fetch("http://localhost:8000/generate-tests", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ code: codeArray }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response from the backend if needed
-        console.log("Backend response:", data);
-      })
-      .catch((error) => {
-        // Handle errors
-        console.error("Error sending data to backend:", error);
-      });
   };
 
   return (
@@ -80,8 +57,7 @@ function App() {
         </div>
         <div className="output-section">
           <h2>Generated Test Cases</h2>
-          <Output output={code[0]} />{" "}
-          {/* Display the outputText from the code array */}
+          <Output output={output} /> {/* Pass the output data as a prop */}
         </div>
       </div>
     </div>
